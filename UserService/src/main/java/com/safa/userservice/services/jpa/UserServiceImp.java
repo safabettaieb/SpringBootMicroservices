@@ -1,5 +1,7 @@
 package com.safa.userservice.services.jpa;
 
+import java.util.NoSuchElementException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,17 @@ public class UserServiceImp implements UserService {
 	@Override
 	public UserDTO addUser(UserDTO userDTO) {
 		User userEntity = mapper.map(userDTO, User.class);
-        userRepo.save(userEntity);
+		userRepo.save(userEntity);
 		return userDTO;
+	}
+
+	@Override
+	public UserDTO getUserById(Long id) {
+		User userEntity = userRepo.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("No user found with ID:" + id));
+		UserDTO userDto = mapper.map(userEntity, UserDTO.class);
+
+		return userDto;
 	}
 
 }

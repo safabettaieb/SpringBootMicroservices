@@ -4,5 +4,6 @@ import com.safa.userservice.dto.UserDTO;
 
 public interface UserService {
 	public UserDTO addUser(UserDTO user);
+	public UserDTO getUserById(Long id);
 
 }
