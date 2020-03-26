@@ -1,5 +1,7 @@
 package com.safa.userservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,11 @@ public class UserController {
 
 		return "User Service runin on port : " + environment.getProperty("local.server.port");
 	}
+	@GetMapping("/all")
+	public List<UserDTO >getAllUsers(){
+		return userService.getAllUsers();
+	}
+	
 
 	@PostMapping("/add")
 	public UserDTO addUser(@RequestBody UserDTO userDto) {
@@ -36,7 +43,7 @@ public class UserController {
 		return userService.addUser(userDto);
 
 	}
-	
+
 	@GetMapping("/{id}")
 	public UserDTO getUserById(@PathVariable Long id) {
 		return userService.getUserById(id);

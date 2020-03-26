@@ -1,5 +1,8 @@
 package com.safa.userservice.services.jpa;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.modelmapper.ModelMapper;
@@ -33,6 +36,14 @@ public class UserServiceImp implements UserService {
 		UserDTO userDto = mapper.map(userEntity, UserDTO.class);
 
 		return userDto;
+	}
+
+	@Override
+	public List<UserDTO> getAllUsers() {
+		List<User> users = new ArrayList<>();
+		userRepo.findAll().forEach(users::add);
+		List<UserDTO> DtoList = Arrays.asList(mapper.map(users, UserDTO[].class));
+		return DtoList;
 	}
 
 }
