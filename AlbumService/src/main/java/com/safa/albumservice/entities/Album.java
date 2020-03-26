@@ -1,28 +1,28 @@
-package com.safa.userservice.entities;
+package com.safa.albumservice.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import lombok.Data;
 
-
 @Entity
 @Data
-public class User {
-	
+public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
-	
-	@Column(nullable = false , length = 30)
+	private Long albumId;
+
+	@Column(nullable = false, length = 30)
 	private String name;
-	
-	@Column(nullable = false , length = 30, unique = true)
-	private String email;
-	
-	private String password;
+
+	@Lob
+	private String description;
+
+	@Column(nullable = false)
+	private Long userId;
 
 }
