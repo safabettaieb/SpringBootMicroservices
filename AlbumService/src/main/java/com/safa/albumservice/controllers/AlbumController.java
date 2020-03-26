@@ -15,7 +15,7 @@ public class AlbumController {
 	@GetMapping({ "", "/", "/welcome" })
 	public String welcome() {
 
-		return "Album Service runin on port : " + environment.getProperty("local.server.port");
+		return "Album Service runin on port :  " + environment.getProperty("local.server.port");
 	}
 
 }
