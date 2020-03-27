@@ -6,7 +6,7 @@ import com.safa.userservice.dto.UserDTO;
 
 public interface UserService {
 	public UserDTO addUser(UserDTO user);
-	public UserDTO getUserById(Long id);
+	public UserDTO getUserByIdWithAlbums(Long id);
 	public List<UserDTO> getAllUsers();
 
 }

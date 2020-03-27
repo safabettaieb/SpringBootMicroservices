@@ -8,8 +8,10 @@ import java.util.NoSuchElementException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.safa.userservice.dto.AlbumDTO;
 import com.safa.userservice.dto.UserDTO;
 import com.safa.userservice.entities.User;
+import com.safa.userservice.feigns.AlbumServiceProxy;
 import com.safa.userservice.repositories.UserRepository;
 import com.safa.userservice.services.UserService;
 
@@ -21,6 +23,7 @@ public class UserServiceImp implements UserService {
 
 	private UserRepository userRepo;
 	private ModelMapper mapper;
+	private AlbumServiceProxy albumServiceProxy;
 
 	@Override
 	public UserDTO addUser(UserDTO userDTO) {
@@ -30,10 +33,13 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public UserDTO getUserById(Long id) {
+	public UserDTO getUserByIdWithAlbums(Long id) {
 		User userEntity = userRepo.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("No user found with ID:" + id));
+		List<AlbumDTO> albums = albumServiceProxy.getUserAlbums(id);
+
 		UserDTO userDto = mapper.map(userEntity, UserDTO.class);
+		userDto.setAlbums(albums);
 
 		return userDto;
 	}
