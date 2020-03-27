@@ -45,11 +45,15 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<UserDTO> getAllUsers() {
-		List<User> users = new ArrayList<>();
-		userRepo.findAll().forEach(users::add);
-		List<UserDTO> DtoList = Arrays.asList(mapper.map(users, UserDTO[].class));
-		return DtoList;
+	public List<UserDTO> getAllUsersWithAlbums() {
+		List<UserDTO> usersDTO = new ArrayList<>();
+		userRepo.findAll().forEach((u)-> {
+			List<AlbumDTO> albums = albumServiceProxy.getUserAlbums(u.getUserId());
+			UserDTO userDTO = mapper.map(u, UserDTO.class);
+			userDTO.setAlbums(albums);
+			usersDTO.add(userDTO);
+		});
+		return usersDTO;
 	}
 
 }

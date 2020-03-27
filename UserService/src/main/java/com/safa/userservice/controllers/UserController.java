@@ -32,8 +32,8 @@ public class UserController {
 		return "User Service runin on port : " + environment.getProperty("local.server.port");
 	}
 	@GetMapping("/all")
-	public List<UserDTO >getAllUsers(){
-		return userService.getAllUsers();
+	public List<UserDTO >getAllUsersWithAlbums(){
+		return userService.getAllUsersWithAlbums();
 	}
 	
 
