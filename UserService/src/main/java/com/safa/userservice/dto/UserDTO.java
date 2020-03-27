@@ -1,12 +1,15 @@
 package com.safa.userservice.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @AllArgsConstructor
@@ -21,7 +24,8 @@ public class UserDTO {
 	
 	@Pattern(regexp = "$[0-9]{6-8}^")
 	private String password;
-
+	
+	private List<AlbumDTO> Albums = new ArrayList<>();
 
 
 }
