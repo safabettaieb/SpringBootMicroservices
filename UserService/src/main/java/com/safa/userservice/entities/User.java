@@ -1,10 +1,14 @@
 package com.safa.userservice.entities;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.Data;
 
@@ -24,5 +28,12 @@ public class User {
 	private String email;
 	
 	private String password;
+	
+	@Transient
+	private BCryptPasswordEncoder Bcryptencoder = new BCryptPasswordEncoder();
+	
+	public void setPassword(String password) {
+		this.password = Bcryptencoder.encode(password);
+	}
 
 }

@@ -15,5 +15,6 @@ public interface AlbumServiceProxy {
 	
 	@GetMapping("/user/{userId}")
 	public List<AlbumDTO> getUserAlbums(@PathVariable Long userId);
+	
 
 }

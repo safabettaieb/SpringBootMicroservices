@@ -1,11 +1,11 @@
 package com.safa.userservice.services.jpa;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.safa.userservice.dto.AlbumDTO;
@@ -54,6 +54,20 @@ public class UserServiceImp implements UserService {
 			usersDTO.add(userDTO);
 		});
 		return usersDTO;
+	}
+
+	@Override
+	public UserDTO getUserByEmail(String userEmail) {
+		
+		User userEntity =userRepo.findByEmail(userEmail).orElseThrow(() -> new NoSuchElementException("No user found with EMAIL:" + userEmail));
+		UserDTO userDTO = mapper.map(userEntity, UserDTO.class);
+		return userDTO;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) {
+		User userEntity =userRepo.findByEmail(username).orElseThrow(() -> new NoSuchElementException("No user found with EMAIL:" + username));
+		return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getPassword(), true, true, true, true, new ArrayList<>());
 	}
 
 }
